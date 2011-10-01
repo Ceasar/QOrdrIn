@@ -21,6 +21,7 @@ def create(request):
   return render_to_response('create.html')
 
 def menu(request):
+  
   return render_to_response('menu.html')
 
 def order(request):
