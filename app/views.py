@@ -1,17 +1,18 @@
 # Create your views here.
 from django.http import HttpResponse
+from django.shortcuts import render_to_response
 
 def index(request):
-  return HttpResponse("Index!")
+  return render_to_response('index.html')
 
 def login(request):
-  return HttpResponse("Login")
+  return render_to_response('login.html')
 
 def create(request):
-  return HttpResponse("Create")
+  return render_to_response('create.html')
 
 def menu(request):
-  return HttpResponse("Menu")
+  return render_to_response('menu.html')
 
 def order(request):
-  return HttpResponse("Order")
+  return render_to_response('order.html')
