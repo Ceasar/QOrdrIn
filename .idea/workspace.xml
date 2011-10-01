@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d803c93f-84b9-4c45-9f0e-35c820fee65a" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/python-bitly/.svn/all-wcprops" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/python-bitly/.svn/entries" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/python-bitly/.svn/text-base/__init__.py.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/python-bitly/.svn/text-base/bitly.py.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/python-bitly/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/python-bitly/bitly.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/api-py" afterPath="$PROJECT_DIR$/app/api-py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="HackNY201112.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -35,7 +28,7 @@
       <file leaf-file-name="ordrin.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/api-py/ordrin.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="25" selection-start="330" selection-end="330" vertical-scroll-proportion="0.19337016">
+            <state line="15" column="0" selection-start="397" selection-end="397" vertical-scroll-proportion="0.41436464">
               <folding />
             </state>
           </provider>
@@ -427,7 +420,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/api-py/ordrin.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="25" selection-start="330" selection-end="330" vertical-scroll-proportion="0.19337016">
+        <state line="15" column="0" selection-start="397" selection-end="397" vertical-scroll-proportion="0.41436464">
           <folding />
         </state>
       </provider>
