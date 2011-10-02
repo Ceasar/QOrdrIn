@@ -70,8 +70,11 @@ def menu(request):
       else:
         short_url = bitly.shorten(long_url) + ".qrcode"
         urls[long_url] = short_url
-      
-      menu_items.append({'id': item['id'], 'name': item['name'], 'price': item['price'], 'short_url': short_url})
+      if "descrip" in item:
+        description = item['descrip']
+      else:
+        description = ''
+      menu_items.append({'name': item['name'], 'price': item['price'], 'description': description, 'short_url': short_url})
 
   pickle.dump(urls, open("urls.p", "wb"))
   return render_to_response("menu.html", {'menu_items': menu_items})
