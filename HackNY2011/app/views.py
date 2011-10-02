@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from HackNY2011.app.models import Order, Options
+from HackNY2011.app.signupform import OrderForm, OptionForm
 
 from models import UserProfile
 
@@ -33,7 +35,7 @@ def index(request):
           card_bill_zip = data['card_bill_zip']
           )
       profile.save()
-      return HttpResponse("Thanks!")
+      return HttpResponse("Your account was successfully created! Feel free to start using the app!")
   else:
     form = SignUpForm()
   context = RequestContext(request, {'form': form})
@@ -47,8 +49,35 @@ def menu(request):
 
 @login_required
 def order(request):
-  return render_to_response('order.html')
+  if request.method == 'POST':
+    form = OrderForm(request.POST)
+    if form.is_valid():
+      data = form.cleaned_data
+      order = Order(addr = data['addr'],
+          city = data['city'],
+          state = data['state'],
+          zip = data['zip'],
+          )
+      order.save()
+      return render_to_response('options.html')
+  else:
+    form = OrderForm()
+  context = RequestContext(request, {'form': form})
+  return render_to_response('order.html', context)
 
 @login_required
 def options(request):
-  return render_to_response('options.html')
+  if request.method == 'POST':
+    form = OptionForm(request.POST)
+    if form.is_valid():
+      data = form.cleaned_data
+      options = Options(tip = data['tip'],
+          delivery_addr = data['delivery_addr'],
+          delivery_time = data['delivery_time'],
+          )
+      options.save()
+      return HttpResponse("Your order was successfully placed!")
+  else:
+    form = OptionForm()
+  context = RequestContext(request, {'form': form})
+  return render_to_response('options.html', context)
