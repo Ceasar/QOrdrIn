@@ -8,6 +8,7 @@ class OrderForm(forms.Form):
   city = forms.CharField(max_length=100)
   state = USStateField()
   zip = USZipCodeField(label='Zip Code')
+  tip = forms.DecimalField(label='Tip', decimal_places=2)
 
 class SignUpForm(forms.Form):
   username = forms.CharField(label='Username', max_length=30)
@@ -36,3 +37,4 @@ class OptionForm(forms.Form):
     tip = forms.DecimalField(label='Tip', decimal_places=2)
     delivery_addr = forms.CharField(label='Delivery Address', max_length=100)
     delivery_time = forms.DateTimeField(label='Delivery Time')
+>>>>>>> 9bf87ffd36d705b8b70226e7963a60c930512ab5

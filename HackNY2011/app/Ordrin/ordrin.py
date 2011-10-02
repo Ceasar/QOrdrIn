@@ -4,11 +4,14 @@ import Ordrin
 
 Ordrin.api.initialize("BgmLvm7s4BGDCvuKu8bTaA", "http://localhost") # developer key and site where hosted
 
+Ordrin.api.submit("142", tray, tip, dTime, first_name, last_name, addr, card_name, card_number, card_cvc, card_expiry, ccAddr)
+
+'''
 place = Ordrin.Address("1 Main St", "College Station", "77840", "Suite 200", "Texas", "4044099661", "Home") # street, city, zip, street2, state, phone, nickname
 when = Ordrin.dTime.now()
 print when
 print place.state
-'''
+
 Ordrin.when.asap()
 
 print place
