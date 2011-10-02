@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 
-from HackNY2011.app.models import Order, Options
+from HackNY2011.app.models import Order
 from HackNY2011.app.signupform import OrderForm, OptionForm, SignUpForm, CreditCardForm
 
 from models import UserProfile
@@ -21,8 +21,8 @@ def thanks(request):
   return render_to_response("thanks.html")
 
 def index(request):
-    if request.method == 'POST':
-        form = SignUpForm(request.POST)
+  if request.method == 'POST':
+    form = SignUpForm(request.POST)
     if form.is_valid():
       data = form.cleaned_data
       user = User(username = data['username'],
@@ -106,7 +106,6 @@ def menu(request):
 
 @login_required
 def order(request):
-<<<<<<< HEAD
   if request.method == 'POST':
     form = OrderForm(request.POST)
     if form.is_valid():
@@ -148,6 +147,3 @@ def options(request):
   context = RequestContext(request, {'form': form})
   return render_to_response('options.html', context)
   '''
-=======
-  return render_to_response('order.html')
->>>>>>> 2e22440929b7ef4bf82fa39764c9a55c8c4e77a3

@@ -4,11 +4,7 @@ from views import *
 
 urlpatterns = patterns('',
     (r'^order/', order),
-<<<<<<< HEAD
     (r'^thanks/', thanks),
-    (r'^options/', options),
-=======
->>>>>>> b53c11c2961795eb80760d1ec8e6236c93a35bb6
     (r'^menu/', menu),
     (r'^creditcard/', creditcard),
     (r'^', index),
