@@ -6,10 +6,10 @@ from views import *
 # admin.autodiscover()
 
 urlpatterns = patterns('',
+    (r'^options/', options),
     (r'^order/', order),
     (r'^menu/', menu),
     (r'login/$', login),
-    (r'create/$', create),
     (r'^', index),
     # Examples:
     # url(r'^$', 'hackny.views.home', name='home'),
