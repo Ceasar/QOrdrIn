@@ -12,6 +12,7 @@ from models import UserProfile
 
 from bitlyapi.bitly import Api
 import Ordrin
+import datetime
 import json
 import urllib, urllib2
 import pickle
@@ -52,11 +53,7 @@ def creditcard(request):
     form = CreditCardForm(request.POST)
     if form.is_valid():
       data = form.cleaned_data
-      user = request.USER
-      profile = UserProfile(user = user,
-          phone = data['phone'],
-          )
-      profile.save()
+      user = request.user
       credit_card = CreditCard(user=user,
           card_name = data['card_name'],
           card_number = data['card_number'],
@@ -103,6 +100,11 @@ def menu(request):
   pickle.dump(urls, open("urls.p", "wb"))
   return render_to_response("menu.html", {'menu_items': menu_items})
 
+def success(request):
+  return render_to_response('success.html')
+
+def thanks(requst):
+  return render_to_response('thanks.html')
 
 @login_required
 def order(request):
@@ -117,12 +119,12 @@ def order(request):
           tip = data['tip'],
           )
       order.save()
-      a = User.objects.all()
-      b = a[1].userprofile
-      m = Order.objects.all()
-      n = m[1]
+      user = request.user
+      profile = user.userprofile
+      creditcard = user.creditcard
       Ordrin.api.initialize("BgmLvm7s4BGDCvuKu8bTaA", "https://r-test.ordr.in")
-      Ordrin.o.submit("142", "", n.tip, datetime.datetime, request.user.first_name, request.user.last_name, n.addr, b.card_name, b.card_number, b.card_cvc, b.card_expiry, b.card_bill_addr) # tray as [item ID][quantity][options]-[item ID-2][quantity]
+      Ordrin.o.submit("142", "", order.tip, datetime.datetime, user.first_name, user.last_name, order.addr, creditcard.card_name, creditcard.card_number, creditcard.card_cvc, creditcard.card_expiry, profile.card_bill_addr) # tray as [item ID][quantity][options]-[item ID-2][quantity]
+      return render_to_response('success.html')
     
   else:
     form = OrderForm()

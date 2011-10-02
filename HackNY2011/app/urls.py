@@ -7,6 +7,7 @@ urlpatterns = patterns('',
     (r'^thanks/', thanks),
     (r'^menu/', menu),
     (r'^creditcard/', creditcard),
+    (r'^success/', success),
     (r'^', index),
     # Examples:
     # url(r'^$', 'hackny.views.home', name='home'),

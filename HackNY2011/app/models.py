@@ -18,10 +18,9 @@ class CreditCard(models.Model):
   card_cvc = models.CharField(max_length=4)  #card security code
   card_expiry = models.CharField(max_length=6)
 
-
 class Order(models.Model):
-    addr = models.CharField(max_length=100)
-    city = models.CharField(max_length=100)
-    state = models.CharField(max_length=2)
-    zip = models.CharField(max_length=5)
-    tip = models.DecimalField(decimal_places=2, max_digits=5)
+  addr = models.CharField(max_length=100)
+  city = models.CharField(max_length=100)
+  state = models.CharField(max_length=2)
+  zip = models.CharField(max_length=5)
+  tip = models.DecimalField(decimal_places=2, max_digits=5)
