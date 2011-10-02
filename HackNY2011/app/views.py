@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from HackNY2011.app.models import Order, Options
-from HackNY2011.app.signupform import OrderForm, OptionForm
+from HackNY2011.app.models import Order
+from HackNY2011.app.signupform import OrderForm
 
 from models import UserProfile
 
@@ -15,6 +15,7 @@ import Ordrin
 import json
 import urllib, urllib2
 import pickle
+import datetime
 
 def index(request):
   if request.method == 'POST':
@@ -86,14 +87,16 @@ def order(request):
           city = data['city'],
           state = data['state'],
           zip = data['zip'],
+          tip = data['tip'],
           )
-      order.save()
-      return render_to_response('options.html')
+      Ordrin.api.initialize("BgmLvm7s4BGDCvuKu8bTaA", "https://r-test.ordr.in")
+      Ordrin.o.submit("142", order.tip, datetime.datetime, User.email, UserProfile.user.first_name, UserProfile.user.last_name, order.addr, UserProfile.card_name, UserProfile.card_number, UserProfile.card_cvc, UserProfile.card_expiry, UserProfile.card_bill_addr) # tray as [item ID][quantity][options]-[item ID-2][quantity]
   else:
     form = OrderForm()
   context = RequestContext(request, {'form': form})
   return render_to_response('order.html', context)
 
+'''
 @login_required
 def options(request):
   if request.method == 'POST':
@@ -110,3 +113,4 @@ def options(request):
     form = OptionForm()
   context = RequestContext(request, {'form': form})
   return render_to_response('options.html', context)
+  '''

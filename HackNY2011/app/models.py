@@ -17,13 +17,9 @@ class UserProfile(models.Model):
     card_bill_state = models.CharField(max_length=2)
     card_bill_zip = models.CharField(max_length=5)
 
-class Options(models.Model):
-    tip = models.DecimalField(decimal_places=2, max_digits=5)
-    delivery_addr = models.CharField(max_length=100)
-    delivery_time = models.DateTimeField()
-
 class Order(models.Model):
-  addr = models.CharField(max_length=100)
-  city = models.CharField(max_length=100)
-  state = models.CharField(max_length=2)
-  zip = models.CharField(max_length=5)
+    addr = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=2)
+    zip = models.CharField(max_length=5)
+    tip = models.DecimalField(decimal_places=2, max_digits=5)
