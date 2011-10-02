@@ -28,6 +28,7 @@ def index(request):
           last_name = data['last_name'],
           email = data['email']
           )
+      user.is_staff=True
       user.save()
       profile = UserProfile(user = user,
           phone = data['phone'],
@@ -89,8 +90,14 @@ def order(request):
           zip = data['zip'],
           tip = data['tip'],
           )
+      order.save()
+      a = User.objects.all()
+      b = a[1].userprofile
+      m = Order.objects.all()
+      n = m[1]
       Ordrin.api.initialize("BgmLvm7s4BGDCvuKu8bTaA", "https://r-test.ordr.in")
-      Ordrin.o.submit("142", order.tip, datetime.datetime, User.email, UserProfile.user.first_name, UserProfile.user.last_name, order.addr, UserProfile.card_name, UserProfile.card_number, UserProfile.card_cvc, UserProfile.card_expiry, UserProfile.card_bill_addr) # tray as [item ID][quantity][options]-[item ID-2][quantity]
+      Ordrin.o.submit("142", "", n.tip, datetime.datetime, request.user.first_name, request.user.last_name, n.addr, b.card_name, b.card_number, b.card_cvc, b.card_expiry, b.card_bill_addr) # tray as [item ID][quantity][options]-[item ID-2][quantity]
+    
   else:
     form = OrderForm()
   context = RequestContext(request, {'form': form})
