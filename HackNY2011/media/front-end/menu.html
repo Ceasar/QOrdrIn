@@ -11,7 +11,11 @@
   </head>
   <body>
       {% for menu_item in menu_items %}
-      <div>{{menu_item.name}}, ${{menu_item.price}}, <img src="{{menu_item.short_url}}" /></div>
+      <div>
+	<div class="item_name">{{menu_item.name}}</div>
+	<div class="item_price">${{menu_item.price}}</div>
+	<img class="qrcode" src="{{menu_item.short_url}}" />
+      </div>
       {% endfor %}
 
   </body>
