@@ -30,3 +30,8 @@ class SignUpForm(forms.Form):
   #card security code
   card_cvc = forms.CharField(label='Security Code', max_length=4)
   card_expiry = forms.CharField(label='Expiration Date', max_length=6)
+
+class OptionForm(forms.Form):
+    tip = forms.DecimalField(label='Tip', decimal_places=2)
+    delivery_addr = forms.CharField(label='Delivery Address', max_length=100)
+    delivery_time = forms.DateTimeField(label='Delivery Time')

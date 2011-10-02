@@ -63,3 +63,7 @@ def menu(request):
 @login_required
 def order(request):
   return render_to_response('order.html')
+
+@login_required
+def options(request):
+  return render_to_response('options.html')
