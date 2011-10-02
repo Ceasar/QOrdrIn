@@ -3,10 +3,8 @@ from django.conf.urls.defaults import patterns, include, url
 from views import *
 
 urlpatterns = patterns('',
-    (r'^options/', options),
     (r'^order/', order),
     (r'^menu/', menu),
-    (r'login/$', login),
     (r'^', index),
     # Examples:
     # url(r'^$', 'hackny.views.home', name='home'),

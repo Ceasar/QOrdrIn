@@ -1,4 +1,5 @@
 # Create your views here.
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
@@ -44,8 +45,6 @@ def login(request):
 def menu(request):
   return render_to_response('menu.html')
 
-def options(request):
-  return render_to_response('options.html')
-
+@login_required
 def order(request):
   return render_to_response('order.html')
