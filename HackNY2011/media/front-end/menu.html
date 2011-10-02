@@ -12,7 +12,7 @@
   <body>
       {% for menu_item in menu_items %}
       <div class="item_wrapper">
-	<img class="qrcode" src="{{menu_item.short_url}}" />
+	<div class="item_qrcode"><img src="{{menu_item.short_url}}" /></div>
 	<div class="item_name">{{menu_item.name}}</div>
 	<div class="item_price">${{menu_item.price}}</div>
       </div>
