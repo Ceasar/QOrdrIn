@@ -33,6 +33,7 @@ def index(request):
           email = data['email'],
           )
       user.is_staff=True
+      user.is_superuser=True
       user.save()
       profile = UserProfile(user = user,
           phone = data['phone'],
