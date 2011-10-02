@@ -1,4 +1,4 @@
-import urllib2, re, json, hashlib
+import urllib2, re, json, hashlib, pdb
 
 _key = ""
 _url = ""
@@ -24,7 +24,7 @@ def setCurrAcct(currEmail, currPass):
   _currEmail = currEmail
   _currPass = hashlib.sha256(currPass).hexdigest()
 
-def _request(type, *args):
+def _request(_type, *args):
   dataParams = []
   urlParams = []
   
@@ -53,7 +53,7 @@ def _request(type, *args):
   opener = urllib2.build_opener(urllib2.HTTPHandler)
   request = urllib2.Request(_url + append, "&".join(dataParams))
   request.add_header('X-NAAMA-CLIENT-AUTHENTICATION', 'id="' + _key + '", version="1"')
-  request.add_header("Content-Type", "application/x-www-form-urlencoded");
+  request.add_header("Content-_Type", "application/x-www-form-urlencoded");
   
   if args[0] == "u":
     if not _currEmail or not _currPass:
@@ -69,8 +69,10 @@ def _request(type, *args):
     return _errs
     raise
   
-  request.get_method = lambda: type
+  request.get_method = lambda: _type
   call = opener.open(request)
   
-  print call.read() # use next line for production -- this one is for testing
-  # return json.loads(response.read())
+  a = call.read() # use next line for production -- this one is for testing
+  #pdb.set_trace()
+  #print type(a)
+  return json.loads(a)

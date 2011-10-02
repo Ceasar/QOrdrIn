@@ -21,4 +21,4 @@ def deliveryFee(rID, subtotal, tip, dT, addr):
 def details(rID):
   if not re.match(api._checkNums, rID):
     api._errs.append("r.deliveryCheck - validation - restaurant ID (invalid, must be numerical)")
-  api._request("GET", "rd", rID)
+  return api._request("GET", "rd", rID)
