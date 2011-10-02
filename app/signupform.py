@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.localflavor.us.forms import *
 
+from models import *
+
 class OrderForm(forms.Form):
   addr = forms.CharField(label='Address', max_length=100)
   city = forms.CharField(max_length=100)
@@ -14,7 +16,7 @@ class SignUpForm(forms.Form):
   first_name = forms.CharField(label='First Name', max_length=30)
   last_name = forms.CharField(label='Last Name', max_length=30)
   phone = USPhoneNumberField()
-  em = forms.EmailField(label='Email')
+  email = forms.EmailField(label='Email')
 
   card_bill_addr = forms.CharField(label='Address', max_length=100)
   card_bill_city = forms.CharField(label='City', max_length=100)
