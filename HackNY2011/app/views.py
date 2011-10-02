@@ -11,7 +11,8 @@ from signupform import SignUpForm
 from bitlyapi.bitly import Api
 import Ordrin
 import json
-import urllib
+import urllib, urllib2
+import pickle
 
 def index(request):
   if request.method == 'POST':
@@ -49,14 +50,27 @@ def login(request):
 def menu(request):
   Ordrin.api.initialize("BgmLvm7s4BGDCvuKu8bTaA", "https://r-test.ordr.in")
   bitly = Api(login = "o_5c6f85d1rm", apikey = "R_58d5a8e468494904fc23a57f4d1d10e1")
+
   result = Ordrin.r.details("142") # TODO: replace value with restaurant_id
   menu_items = []
+  try:
+    urls = pickle.load(open("urls.p", "rb"))
+    print "OPENING urls.p"
+  except IOError:
+    urls = {}
+    
   for category in result['menu']:
-    x = category['name']
     for item in category['children']:
-      short_url = bitly.shorten('http://afternoon-cloud-1710.herokuapp.com/order/?' + urllib.urlencode({'id': item['id']})) + ".qrcode"
-      menu_items.append({'id': item['id'], 'name': item['name'], 'price': item['price'], 'url': short_url})
+      long_url = 'http://afternoon-cloud-1710.herokuapp.com/order/?' + urllib.urlencode({'id': item['id']})
+      if long_url in urls:
+        short_url = urls[long_url]
+      else:
+        short_url = bitly.shorten(long_url) + ".qrcode"
+        urls[long_url] = short_url
+      
+      menu_items.append({'id': item['id'], 'name': item['name'], 'price': item['price'], 'short_url': short_url})
 
+  pickle.dump(urls, open("urls.p", "wb"))
   return render_to_response("menu.html", {'menu_items': menu_items})
 
 

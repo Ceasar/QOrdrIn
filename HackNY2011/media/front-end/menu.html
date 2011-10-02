@@ -10,7 +10,7 @@
       </div>
 
       {% for menu_item in menu_items %}
-      <div>{{menu_item.name}}, ${{menu_item.price}}, {{menu_item.url}}</div>
+      <div>{{menu_item.name}}, ${{menu_item.price}}, <img src="{{menu_item.short_url}}" /></div>
       {% endfor %}
 
   </body>
