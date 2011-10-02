@@ -2,19 +2,22 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from HackNY2011.app.models import Order, Options
-from HackNY2011.app.signupform import OrderForm, OptionForm
+from HackNY2011.app.signupform import OrderForm, OptionForm, SignUpForm, CreditCardForm
+
 
 from models import UserProfile
 
-from signupform import SignUpForm
 from bitlyapi.bitly import Api
 import Ordrin
 import json
 import urllib, urllib2
 import pickle
+
+def thanks(request):
+  return render_to_response("thanks.html")
 
 def index(request):
   if request.method == 'POST':
@@ -25,26 +28,46 @@ def index(request):
           password = data['password'],
           first_name = data['first_name'],
           last_name = data['last_name'],
-          email = data['email']
+          email = data['email'],
           )
       user.save()
       profile = UserProfile(user = user,
           phone = data['phone'],
-          card_name = data['card_name'],
-          card_number = data['card_number'],
-          card_cvc = data['card_cvc'],
-          card_expiry = data['card_expiry'],
           card_bill_addr = data['card_bill_addr'],
           card_bill_city = data['card_bill_city'],
           card_bill_state = data['card_bill_state'],
           card_bill_zip = data['card_bill_zip']
           )
       profile.save()
-      return HttpResponse("Your account was successfully created! Feel free to start using the app!")
+      return redirect('/creditcard/')
   else:
     form = SignUpForm()
   context = RequestContext(request, {'form': form})
   return render_to_response('index.html', context)
+
+def creditcard(request):
+  if request.method == 'POST':
+    form = CreditCardForm(request.POST)
+    if form.is_valid():
+      data = form.cleaned_data
+      user = request.USER
+      profile = UserProfile(user = user,
+          phone = data['phone'],
+          )
+      profile.save()
+      credit_card = CreditCard(user=user,
+          card_name = data['card_name'],
+          card_number = data['card_number'],
+          card_cvc = data['card_cvc'],
+          card_expiry = data['card_expiry'],
+          )
+      credit_card.save()
+      return HttpResponse("Your account was successfully created! Feel free to start using the app!")
+  else:
+    form = CreditCardForm()
+  context = RequestContext(request, {'form': form})
+  return render_to_response('creditcard.html', context)
+
 
 def login(request):
   return render_to_response('login.html')
