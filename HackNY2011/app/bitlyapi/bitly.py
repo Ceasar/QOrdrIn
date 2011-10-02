@@ -1,5 +1,3 @@
-__author__ = 'sshah'
-
 #!/usr/bin/python2.4
 #
 # Copyright 2009 Empeeric LTD. All Rights Reserved.
