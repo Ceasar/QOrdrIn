@@ -1,3 +1,5 @@
+__author__ = 'sshah'
+
 #!/usr/bin/python2.4
 #
 # Copyright 2009 Empeeric LTD. All Rights Reserved.
@@ -15,7 +17,6 @@
 # limitations under the License.
 
 import urllib,urllib2
-import urlparse
 import string
 try:
    import simplejson
@@ -102,14 +103,6 @@ class Api(object):
         self._CheckForError(json)
         return json['results'][string.split(shortURL, '/')[-1]]
 
-    def stats(self,shortURL,params={}):
-        """ Given a bit.ly url or hash, return traffic and referrer data.  """
-        request = self._getURL("stats",shortURL,params)
-        result = self._fetchUrl(request)
-        json = simplejson.loads(result)
-        self._CheckForError(json)
-        return Stats.NewFromJsonDict(json['results'])
-
     def errors(self,params={}):
         """ Get a list of bit.ly API error codes. """
         request = self._getURL("errors","",params)
@@ -179,50 +172,10 @@ class Api(object):
                 if 'statusCode' in data['results'][key] and data['results'][key]['statusCode'] == 'ERROR':
                     raise BitlyError, data['results'][key]['errorMessage'] 
        
-class Stats(object):
-    '''A class representing the Statistics returned by the bitly api.
-    
-    The Stats structure exposes the following properties:
-    status.user_clicks # read only
-    status.clicks # read only
-    '''
-    
-    def __init__(self,user_clicks=None,total_clicks=None):
-        self.user_clicks = user_clicks
-        self.total_clicks = total_clicks
-    
-    @staticmethod
-    def NewFromJsonDict(data):
-        '''Create a new instance based on a JSON dict.
-    
-        Args:
-          data: A JSON dict, as converted from the JSON in the bitly API
-        Returns:
-          A bitly.Stats instance
-        '''
-        return Stats(user_clicks=data.get('userClicks', None),
-                      total_clicks=data.get('clicks', None))
-
-        
 if __name__ == '__main__':
-    testURL1="www.yahoo.com"
-    testURL2="www.cnn.com"
-    a=Api(login="pythonbitly",apikey="R_06871db6b7fd31a4242709acaf1b6648")
-    short=a.shorten(testURL1)    
+    url="www.google.com"
+    a=Api(login="o_5c6f85d1rm",apikey="R_58d5a8e468494904fc23a57f4d1d10e1")
+    short=a.shorten(url)
     print "Short URL = %s" % short
-    short=a.shorten(testURL1,{'history':1})    
-    print "Short URL with history = %s" % short
-    urlList=[testURL1,testURL2]
-    shortList=a.shorten(urlList)
-    print "Short URL list = %s" % shortList
-    long=a.expand(short)
-    print "Expanded URL = %s" % long
-    info=a.info(short)
-    print "Info: %s" % info
-    stats=a.stats(short)
-    print "User clicks %s, total clicks: %s" % (stats.user_clicks,stats.total_clicks)
-    errors=a.errors()
-    print "Errors: %s" % errors
-    testURL3=["www.google.com"]
-    short=a.shorten(testURL3) 
-    print "Short url in list = %s" % short
+    short+='.qrcode'
+    print "Short URL = %s" % short
