@@ -24,6 +24,7 @@ class SignUpForm(forms.Form):
   card_bill_state = USStateField(label='State')
   card_bill_zip = USZipCodeField(label='Zip Code')
 
+class CreditCardForm(forms.Form):
   #THIS IS SKETCHY
   #full name of customer as appears on card
   card_name = forms.CharField(label='Name on card', max_length=30)

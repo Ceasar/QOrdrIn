@@ -4,8 +4,10 @@ from views import *
 
 urlpatterns = patterns('',
     (r'^order/', order),
+    (r'^thanks/', thanks),
     (r'^options/', options),
     (r'^menu/', menu),
+    (r'^creditcard/', creditcard),
     (r'^', index),
     # Examples:
     # url(r'^$', 'hackny.views.home', name='home'),
