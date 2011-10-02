@@ -3,12 +3,10 @@
   <head>
     <title>Menu</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="http://www.webputty.net/css/agtzfmNzc2ZpZGRsZXIMCxIEUGFnZRjGjx0M" />
+    <script type="text/javascript">(function(w,d){if(w.location!=w.parent.location||w.location.search.indexOf('__preview_css__')>-1){var t=d.createElement('script');t.type='text/javascript';t.async=true;t.src='http://www.webputty.net/js/agtzfmNzc2ZpZGRsZXIMCxIEUGFnZRjGjx0M';(d.body||d.documentElement).appendChild(t);}})(window,document);</script>
   </head>
   <body>
-      <div id="content">
-         Hello this is the menu page
-      </div>
-
       {% for menu_item in menu_items %}
       <div>{{menu_item.name}}, ${{menu_item.price}}, <img src="{{menu_item.short_url}}" /></div>
       {% endfor %}
