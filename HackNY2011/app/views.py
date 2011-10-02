@@ -4,32 +4,34 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from HackNY2011.app.models import Order
-from HackNY2011.app.signupform import OrderForm
+
+#establish mongodb connection
+from pymongo.connection import Connection
+connection = Connection("localhost")
+db = connection.foo
 
 from models import UserProfile
 
 from signupform import SignUpForm
-from bitlyapi.bitly import Api
-import Ordrin
-import json
-import urllib, urllib2
-import pickle
-import datetime
 
 def index(request):
-  if request.method == 'POST':
-    form = SignUpForm(request.POST)
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
     if form.is_valid():
-      data = form.cleaned_data
-      user = User(username = data['username'],
-          password = data['password'],
-          first_name = data['first_name'],
-          last_name = data['last_name'],
-          email = data['email']
-          )
-      user.save()
-      profile = UserProfile(user = user,
+        data = form.cleaned_data;
+        user_info = {"username": data['username'] ,
+                     "password": data['password'],
+                     "firstname": data['first_name'],
+                     "lastname": data['last_name'],
+                     "email": data['email']};
+        db.collection.save(user_info);
+        user = User(username = data['username'],
+            password = data['password'],
+            first_name = data['first_name'],
+            last_name = data['last_name'],
+            email = data['email'])
+        user.save()
+        profile = UserProfile(user = user,
           phone = data['phone'],
           card_name = data['card_name'],
           card_number = data['card_number'],
@@ -38,14 +40,13 @@ def index(request):
           card_bill_addr = data['card_bill_addr'],
           card_bill_city = data['card_bill_city'],
           card_bill_state = data['card_bill_state'],
-          card_bill_zip = data['card_bill_zip']
-          )
-      profile.save()
-      return HttpResponse("Your account was successfully created! Feel free to start using the app!")
-  else:
-    form = SignUpForm()
-  context = RequestContext(request, {'form': form})
-  return render_to_response('index.html', context)
+          card_bill_zip = data['card_bill_zip'])
+        profile.save()
+        return HttpResponse("Thanks!")
+    else:
+        form = SignUpForm()
+        context = RequestContext(request, {'form': form})
+        return render_to_response('index.html', context)
 
 def login(request):
   return render_to_response('login.html')
@@ -82,38 +83,4 @@ def menu(request):
 
 @login_required
 def order(request):
-  if request.method == 'POST':
-    form = OrderForm(request.POST)
-    if form.is_valid():
-      data = form.cleaned_data
-      order = Order(addr = data['addr'],
-          city = data['city'],
-          state = data['state'],
-          zip = data['zip'],
-          tip = data['tip'],
-          )
-      Ordrin.api.initialize("BgmLvm7s4BGDCvuKu8bTaA", "https://r-test.ordr.in")
-      Ordrin.o.submit("142", order.tip, datetime.datetime, User.email, UserProfile.user.first_name, UserProfile.user.last_name, order.addr, UserProfile.card_name, UserProfile.card_number, UserProfile.card_cvc, UserProfile.card_expiry, UserProfile.card_bill_addr) # tray as [item ID][quantity][options]-[item ID-2][quantity]
-  else:
-    form = OrderForm()
-  context = RequestContext(request, {'form': form})
-  return render_to_response('order.html', context)
-
-'''
-@login_required
-def options(request):
-  if request.method == 'POST':
-    form = OptionForm(request.POST)
-    if form.is_valid():
-      data = form.cleaned_data
-      options = Options(tip = data['tip'],
-          delivery_addr = data['delivery_addr'],
-          delivery_time = data['delivery_time'],
-          )
-      options.save()
-      return HttpResponse("Your order was successfully placed!")
-  else:
-    form = OptionForm()
-  context = RequestContext(request, {'form': form})
-  return render_to_response('options.html', context)
-  '''
+  return render_to_response('order.html')
