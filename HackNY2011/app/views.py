@@ -59,7 +59,7 @@ def order(request):
           zip = data['zip'],
           )
       order.save()
-      return render_to_response('options.html')
+      return render_to_response('options/')
   else:
     form = OrderForm()
   context = RequestContext(request, {'form': form})
