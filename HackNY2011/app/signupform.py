@@ -34,4 +34,4 @@ class SignUpForm(forms.Form):
 class OptionForm(forms.Form):
     tip = forms.DecimalField(label='Tip', decimal_places=2)
     delivery_addr = forms.CharField(label='Delivery Address', max_length=100)
-    delivery_time = forms.DateTimeField(label='Delivery Time', auto_now_add=True)
+    delivery_time = forms.DateTimeField(label='Delivery Time')
