@@ -4,11 +4,19 @@
     <title>Menu</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" type="text/css" href="http://www.webputty.net/css/agtzfmNzc2ZpZGRsZXIMCxIEUGFnZRjGjx0M" />
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css">
+    <link href="http://fonts.googleapis.com/css?family=Poller+One" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="http://dl.dropbox.com/u/7818784/style.css" />
     <script type="text/javascript">(function(w,d){if(w.location!=w.parent.location||w.location.search.indexOf('__preview_css__')>-1){var t=d.createElement('script');t.type='text/javascript';t.async=true;t.src='http://www.webputty.net/js/agtzfmNzc2ZpZGRsZXIMCxIEUGFnZRjGjx0M';(d.body||d.documentElement).appendChild(t);}})(window,document);</script>
   </head>
   <body>
       {% for menu_item in menu_items %}
-      <div>{{menu_item.name}}, ${{menu_item.price}}, <img src="{{menu_item.short_url}}" /></div>
+      <div class="item_wrapper">
+	<div class="item_qrcode"><img src="{{menu_item.short_url}}" /></div>
+	<div class="item_name">{{menu_item.name}}</div>
+	<div class="item_price">${{menu_item.price}}</div>
+	<div class="item_description">{{menu_item.description}}</div>
+      </div>
       {% endfor %}
 
   </body>

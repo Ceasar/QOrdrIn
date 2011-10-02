@@ -8,6 +8,7 @@ class OrderForm(forms.Form):
   city = forms.CharField(max_length=100)
   state = USStateField()
   zip = USZipCodeField(label='Zip Code')
+  tip = forms.DecimalField(label='Tip', decimal_places=2)
 
 class SignUpForm(forms.Form):
   username = forms.CharField(label='Username', max_length=30)

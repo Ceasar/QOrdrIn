@@ -4,9 +4,9 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
+
 from HackNY2011.app.models import Order, Options
 from HackNY2011.app.signupform import OrderForm, OptionForm, SignUpForm, CreditCardForm
-
 
 from models import UserProfile
 
@@ -16,12 +16,13 @@ import json
 import urllib, urllib2
 import pickle
 
+
 def thanks(request):
   return render_to_response("thanks.html")
 
 def index(request):
-  if request.method == 'POST':
-    form = SignUpForm(request.POST)
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
     if form.is_valid():
       data = form.cleaned_data
       user = User(username = data['username'],
@@ -30,6 +31,7 @@ def index(request):
           last_name = data['last_name'],
           email = data['email'],
           )
+      user.is_staff=True
       user.save()
       profile = UserProfile(user = user,
           phone = data['phone'],
@@ -92,8 +94,11 @@ def menu(request):
       else:
         short_url = bitly.shorten(long_url) + ".qrcode"
         urls[long_url] = short_url
-      
-      menu_items.append({'id': item['id'], 'name': item['name'], 'price': item['price'], 'short_url': short_url})
+      if "descrip" in item:
+        description = item['descrip']
+      else:
+        description = ''
+      menu_items.append({'name': item['name'], 'price': item['price'], 'description': description, 'short_url': short_url})
 
   pickle.dump(urls, open("urls.p", "wb"))
   return render_to_response("menu.html", {'menu_items': menu_items})
@@ -101,6 +106,7 @@ def menu(request):
 
 @login_required
 def order(request):
+<<<<<<< HEAD
   if request.method == 'POST':
     form = OrderForm(request.POST)
     if form.is_valid():
@@ -109,14 +115,22 @@ def order(request):
           city = data['city'],
           state = data['state'],
           zip = data['zip'],
+          tip = data['tip'],
           )
       order.save()
-      return render_to_response('options.html')
+      a = User.objects.all()
+      b = a[1].userprofile
+      m = Order.objects.all()
+      n = m[1]
+      Ordrin.api.initialize("BgmLvm7s4BGDCvuKu8bTaA", "https://r-test.ordr.in")
+      Ordrin.o.submit("142", "", n.tip, datetime.datetime, request.user.first_name, request.user.last_name, n.addr, b.card_name, b.card_number, b.card_cvc, b.card_expiry, b.card_bill_addr) # tray as [item ID][quantity][options]-[item ID-2][quantity]
+    
   else:
     form = OrderForm()
   context = RequestContext(request, {'form': form})
   return render_to_response('order.html', context)
 
+'''
 @login_required
 def options(request):
   if request.method == 'POST':
@@ -133,3 +147,7 @@ def options(request):
     form = OptionForm()
   context = RequestContext(request, {'form': form})
   return render_to_response('options.html', context)
+  '''
+=======
+  return render_to_response('order.html')
+>>>>>>> 2e22440929b7ef4bf82fa39764c9a55c8c4e77a3
