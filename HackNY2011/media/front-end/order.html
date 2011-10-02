@@ -5,9 +5,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   </head>
   <body>
-      <div id="content">
-         Hello this is the order page
-      </div>
-
+      <h1>QOrderIn</h1>
+      <p>QOrdernIn lets you easily order food from your favorite restaurants by simply scanning the QRCodes posted in their windows.</p>
+      <div>
+        <h2>Place an Order</h2>
+        <form action="" method="post">{% csrf_token %}
+            {{ form.as_p}}
+            <input type="submit" value="Submit"/>
+        </form>
+    </div>
   </body>
 </html>
