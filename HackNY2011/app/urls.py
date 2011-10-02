@@ -4,6 +4,7 @@ from views import *
 
 urlpatterns = patterns('',
     (r'^order/', order),
+    (r'^options/', options),
     (r'^menu/', menu),
     (r'^', index),
     # Examples:
