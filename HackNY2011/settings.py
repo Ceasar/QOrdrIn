@@ -106,7 +106,7 @@ ROOT_URLCONF = 'HackNY2011.urls'
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 
 TEMPLATE_DIRS = (
-    os.path.join(PROJECT_PATH, 'media/front-end'),
+    os.path.join(PROJECT_PATH, 'HackNY2011', 'media/front-end'),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
