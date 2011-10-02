@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
   user = models.OneToOneField(User)
-  phone = models.CharField(max_length=10)
+  phone = models.CharField(max_length=12)
   card_bill_addr = models.CharField(max_length=100)
   card_bill_city = models.CharField(max_length=100)
   card_bill_state = models.CharField(max_length=2)
