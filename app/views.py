@@ -7,6 +7,10 @@ from django.template import RequestContext
 from models import UserProfile
 
 from signupform import SignUpForm
+from bitlyapi.bitly import Api
+import Ordrin
+import json
+import urllib
 
 def index(request):
   if request.method == 'POST':
@@ -42,7 +46,18 @@ def login(request):
   return render_to_response('login.html')
 
 def menu(request):
-  return render_to_response('menu.html')
+  Ordrin.api.initialize("BgmLvm7s4BGDCvuKu8bTaA", "https://r-test.ordr.in")
+  bitly = Api(login = "o_5c6f85d1rm", apikey = "R_58d5a8e468494904fc23a57f4d1d10e1")
+  result = Ordrin.r.details("142") # TODO: replace value with restaurant_id
+  menu_items = []
+  for category in result['menu']:
+    x = category['name']
+    for item in category['children']:
+      #short_url = bitly.shorten('http://localhost:8000/order/?' + urllib.urlencode({'id': item['id']}))
+      menu_items.append({'id': item['id'], 'name': item['name'], 'price': item['price'], 'url': 'http://localhost:8000/order/?' + urllib.urlencode({'id': item['id']})})
+
+  return render_to_response("menu.html", {'menu_items': menu_items})
+
 
 def options(request):
   return render_to_response('options.html')
