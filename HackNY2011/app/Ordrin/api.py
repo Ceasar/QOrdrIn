@@ -72,7 +72,4 @@ def _request(_type, *args):
   request.get_method = lambda: _type
   call = opener.open(request)
   
-  a = call.read() # use next line for production -- this one is for testing
-  #pdb.set_trace()
-  #print type(a)
-  return json.loads(a)
+  return json.loads(call.read())
