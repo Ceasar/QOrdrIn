@@ -54,8 +54,8 @@ def menu(request):
   for category in result['menu']:
     x = category['name']
     for item in category['children']:
-      #short_url = bitly.shorten('http://localhost:8000/order/?' + urllib.urlencode({'id': item['id']}))
-      menu_items.append({'id': item['id'], 'name': item['name'], 'price': item['price'], 'url': 'http://localhost:8000/order/?' + urllib.urlencode({'id': item['id']})})
+      short_url = bitly.shorten('http://afternoon-cloud-1710.herokuapp.com/order/?' + urllib.urlencode({'id': item['id']})) + ".qrcode"
+      menu_items.append({'id': item['id'], 'name': item['name'], 'price': item['price'], 'url': short_url})
 
   return render_to_response("menu.html", {'menu_items': menu_items})
 
