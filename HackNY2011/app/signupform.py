@@ -12,6 +12,7 @@ class OrderForm(forms.Form):
 class SignUpForm(forms.Form):
   username = forms.CharField(label='Username', max_length=30)
   password = forms.CharField(label='Password', widget=forms.PasswordInput(render_value=False))
+  password2 = forms.CharField(label='Retype password', widget=forms.PasswordInput(render_value=False))
 
   first_name = forms.CharField(label='First Name', max_length=30)
   last_name = forms.CharField(label='Last Name', max_length=30)
